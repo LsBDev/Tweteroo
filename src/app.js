@@ -29,13 +29,12 @@ app.post("/tweets", (req, res) => {
 })
 
 app.get("/tweets", (req, res) => {
-    const publish = tweets.map((t) => {
-        const user = users.find((us) => us.username === t.username)
-        const newItem = {...t, avatar: user.avatar};
-        return newItem;
-    })
-
-    return res.send(publish);  
+        const publish = tweets.map((t) => {
+            const user = users.find((us) => us.username === t.username)
+            const newItem = {...t, avatar: user.avatar};
+            return newItem;
+        })
+    return res.send(publish.slice(-10));
 })
 
 
