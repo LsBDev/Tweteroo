@@ -12,17 +12,17 @@ app.post("/sign-up", (req, res) => {
     const {username , avatar} = req.body;
     const user = {username: username, avatar: avatar};
     users.push(user);
-    return res.send("OK");
+    return res.status(200).send("OK");
 })
 
 app.post("/tweets", (req, res) => {
     const {username , tweet} = req.body;
     const newTweet = {username: username, tweet: tweet};
     if(!username || username === "") {
-        return res.send("UNAUTHORIZED");
+        return res.status(401).send("UNAUTHORIZED");
     }
     tweets.push(newTweet);
-    res.send("OK");
+    res.status(200).send("OK");
 })
 
 app.get("/tweets", (req, res) => {
@@ -31,7 +31,7 @@ app.get("/tweets", (req, res) => {
         return newItem;
     })
 
-    return res.send(publish);    
+    return res.send(publish);  
 })
 
 
