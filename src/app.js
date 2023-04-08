@@ -21,8 +21,9 @@ app.post("/sign-up", (req, res) => {
 app.post("/tweets", (req, res) => {
     const {username , tweet} = req.body;
     const newTweet = {username: username, tweet: tweet};
-    if(!username || username === "") {
-        return res.status(401).send("UNAUTHORIZED");
+    const nome = users.map((u) => u.username !== username ? true: false)
+    if(!username || username === "" || nome) {
+        return res.status(400).send("UNAUTHORIZED");
     }
     tweets.push(newTweet);
     res.status(200).send("OK");
