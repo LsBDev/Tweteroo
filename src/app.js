@@ -22,7 +22,7 @@ app.post("/tweets", (req, res) => {
     const {username , tweet} = req.body;
     const newTweet = {username: username, tweet: tweet};
     const nome = users.find((u) => u.username === username ? true: false)
-    if(!username || username === "" || nome) {
+    if(!username || username === "" || !nome) {
         return res.status(400).send("UNAUTHORIZED");
     }
     tweets.push(newTweet);
