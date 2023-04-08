@@ -1,15 +1,18 @@
-import express from "express";
+import express, { json } from "express";
 import cors from "cors";
 
 
 const app = express();
+app.use(cors());
+app.use(json());
 const PORT = 5000;
 const users = [];
 const tweets = [];
 
 
 app.post("/sign-up", (req, res) => {
-    const {username , avatar} = req.body;
+    console.log(req);
+    const {username, avatar} = req.body;
     const user = {username: username, avatar: avatar};
     users.push(user);
     return res.status(200).send("OK");
@@ -27,7 +30,8 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
     const publish = tweets.map((t) => {
-        const newItem = {...t, avatar: users.filter((user) => user.username === t.username ? user.avatar : "")};
+        const user = users.find((us) => us.username === t.username)
+        const newItem = {...t, avatar: user.avatar};
         return newItem;
     })
 
