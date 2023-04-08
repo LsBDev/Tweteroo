@@ -7,6 +7,7 @@ const PORT = 5000;
 const users = [];
 const tweets = [];
 
+
 app.post("/sign-up", (req, res) => {
     const {username , avatar} = req.body;
     const user = {username: username, avatar: avatar};
@@ -25,8 +26,12 @@ app.post("/tweets", (req, res) => {
 })
 
 app.get("/tweets", (req, res) => {
-        
-    
+    const publish = tweets.map((t) => {
+        const newItem = {...t, avatar: users.filter((user) => user.username === t.username ? user.avatar : "")};
+        return newItem;
+    })
+
+    return res.send(publish);    
 })
 
 
